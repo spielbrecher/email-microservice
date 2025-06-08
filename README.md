@@ -30,7 +30,9 @@ FastAPI-микросервис для отправки и получения э�
 ### Шаги установки
 
 git clone https://github.com/spielbrecher/email-microservice.git
+
 cd email_microservice
+
 docker-compose up -d
 
 ## Тестирование
