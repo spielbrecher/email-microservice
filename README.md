@@ -31,7 +31,7 @@ FastAPI-микросервис для отправки и получения э�
 
 git clone https://github.com/spielbrecher/email-microservice.git
 
-cd email_microservice
+cd email-microservice
 
 docker-compose up -d
 
