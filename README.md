@@ -44,7 +44,9 @@ docker-compose ps
 #### Ожидаемые контейнеры:
 
 email_microservice-app-1 (FastAPI)
+
 email_microservice-db-1 (PostgreSQL)
+
 email_microservice-mailpit-1 (Mailpit)
 
 ### Ручной запуск тестов в контейнере:
@@ -61,6 +63,8 @@ pytest tests/ -v
 #### Ожидаемые результаты
 collected 3 items
 
-tests/test_emails.py::test_send_email PASSED                                                                                                                                                                                          [ 33%]
-tests/test_emails.py::test_get_emails PASSED                                                                                                                                                                                          [ 66%]
+tests/test_emails.py::test_send_email PASSED
+
+tests/test_emails.py::test_get_emails PASSED
+
 tests/test_emails.py::test_get_statistics PASSED
