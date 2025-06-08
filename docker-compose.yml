@@ -1,0 +1,47 @@
+services:
+  db:
+    image: postgres:15
+    environment:      
+      POSTGRES_HOST_AUTH_METHOD: trust
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: emaildb
+    volumes:
+      - db_data:/var/lib/postgresql/data/
+    ports:
+      - "5432:5432"
+
+  mailpit:
+    image: axllent/mailpit:latest
+    ports:
+      - "1025:1025"     # SMTP
+      - "8025:8025"     # Web UI
+    environment:
+      - MP_SMTP_PORT=1025
+      - MP_HTTP_PORT=8025
+
+  app:
+    build: .
+    command: uvicorn app.main:app --host 0.0.0.0 --port 8000
+    volumes:
+      - .:/app
+    ports:
+      - "8000:8000"
+    environment:
+      PYTHONPATH: /app
+      DATABASE_URL: "postgresql://user:password@db:5432/emaildb"
+      MAILPIT_SMTP_HOST: "mailpit"
+      MAILPIT_SMTP_PORT: 1025
+      MAILPIT_API_URL: "http://mailpit:8025"
+      MAILPIT_SENDER: "test@example.com"
+    depends_on:
+      - db
+      - mailpit
+
+volumes:
+  db_data:
+  mailpit_data:
+  
+networks:
+  default:
+    name: email_microservice_default
